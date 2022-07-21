@@ -118,7 +118,8 @@
                       <small>Admin Profile</small>
                   </div>
                   <a class="nav-link dropdown-toggle pulse p-0" href="#" role="button" data-bs-toggle="dropdown" data-bs-display="static">
-                      <img class="avatar lg rounded-circle img-thumbnail" src="assets/images/profile_av.svg" alt="profile">
+                      <img class="avatar lg rounded-circle img-thumbnail" 
+                      src="{{ asset('dashboard/assets/images/profile_av.svg') }}" alt="profile">
                   </a>
                   <div class="dropdown-menu rounded-lg shadow border-0 dropdown-animation dropdown-menu-end p-0 m-0">
                       <div class="card border-0 w280">

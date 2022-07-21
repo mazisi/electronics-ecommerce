@@ -14,6 +14,12 @@
 
     <!-- project css file  -->
     <link rel="stylesheet" href="{{ asset('dashboard/assets/css/ebazar.style.min.css') }}">
+    @livewireStyles
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
+    <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+
+    <link rel="stylesheet" href="{{ asset('assets/css/lightbox.css') }}">
 </head>
 <body>
     <div id="ebazar-layout" class="theme-blue">
@@ -173,7 +179,7 @@
         </div>
     
     </div>
-
+    @livewireScripts
     <!-- Jquery Core Js -->
     <script src="{{ asset('dashboard/assets/bundles/libscripts.bundle.js') }}"></script>
 
@@ -184,7 +190,8 @@
     <!-- Jquery Page Js -->
     <script src="{{ asset('dashboard/js/template.js') }}"></script>
     <script src="{{ asset('dashboard/page/index.js') }}"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1Jr7axGGkwvHRnNfoOzoVRFV3yOPHJEU&amp;callback=myMap"></script>  
+    <script src="{{ asset('assets/js/lightbox.min.js') }}"></script> 
+    
     <script>
         $('#myDataTable')
         .addClass( 'nowrap')
@@ -194,7 +201,22 @@
                 { targets: [-1, -3], className: 'dt-body-right' }
             ]
         });
-    </script>
+
+    window.livewire.on('hide-modal', () => {
+        // $('#create-category').modal('hide');
+        $('#create-category').hide();
+        let dismiss = document.querySelector('.modal-backdrop') 
+        dismiss.remove();
+    });
+
+    <script>
+    lightbox.option({
+      'maxWidth': 200,
+      'maxHeight': 200
+    })
+</script>
+  </script>
+
 </body>
 
 </html> 
