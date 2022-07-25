@@ -30,11 +30,12 @@
                               Mark As
                             </button>
                             <ul class="dropdown-menu">
-                              <li><a wire:click="updateOrderStatus('complete','{{ $order->id }}')" class="dropdown-item" href="#!">Complete <i class="icofont-tick-boxed"></i></a></li>
-                              <li><a class="dropdown-item text-danger" href="#!">Declined <i class="icofont-close-line-squared-alt"></i></a></li>
+                              <li><a wire:click="updateOrderStatus('Complete','{{ $order->id }}')" class="dropdown-item" href="#!">Complete <i class="icofont-tick-boxed"></i></a></li>
+                              <li><a wire:click="updateOrderStatus('Declined','{{ $order->id }}')" class="dropdown-item text-danger" href="#!">Declined <i class="icofont-close-line-squared-alt"></i></a></li>
                             </ul>
                           </div>
                     </td>
+                    <i class="fa fa-spinner fa-spin ">
                 </tr>
             @empty
                 <tr></td>
