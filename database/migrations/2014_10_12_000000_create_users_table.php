@@ -17,12 +17,14 @@ return new class extends Migration
             $table->id();
             $table->string('full_name');
             $table->string('email')->unique();
-            $table->mediumInteger('mobile')->nullable();
+            $table->string('is_admin')->nullable();
+            $table->string('mobile')->nullable();
             $table->text('address')->nullable();
             $table->text('city')->nullable();
             $table->text('postal_code')->nullable();
+            $table->string('cookie')->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -15,22 +15,19 @@
                     <tbody>
                         @forelse ($products as $product)
                         <tr>
-                            <td>
-                               
-                                @forelse ($product->product_images as $img)
-                                @if ($loop->even)
-                                    @break
+                            <td>                               
+                                @if(is_null($product->image))
+                                <a href="/view-product?product={{ $product->id }}">
+                                    <img src="{{ asset('dashboard/assets/images/product/product-3.jpg') }}" class="avatar lg rounded " 
+                                    alt="profile-image">
+                                </a>
+                                    
+                                @else
+                                <a href="/view-product?product={{ $product->id }}">
+                                    <img src="{{ asset('storage/'.$product->image) }}" class="avatar lg rounded " 
+                                    alt="profile-image">
+                                </a>
                                 @endif
-                                    <a href="/view-product?product={{ $product->id }}">
-                                        <img src="{{ asset('storage/'.$img->image) }}" class="avatar lg rounded " 
-                                        alt="profile-image">
-                                    </a>
-                                @empty
-                                    <a href="/view-product?product={{ $product->id }}">
-                                        <img src="{{ asset('dashboard/assets/images/product/product-3.jpg') }}" class="avatar lg rounded " 
-                                        alt="profile-image">
-                                    </a>
-                                @endforelse
                                 <span>{{ $product->name }}</span></td>
                             <td>
                                 @if (!is_null($product->category))

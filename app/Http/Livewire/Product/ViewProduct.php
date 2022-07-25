@@ -3,19 +3,20 @@
 namespace App\Http\Livewire\Product;
 
 use App\Models\Product;
-use App\Models\ProductImage;
 use Livewire\Component;
+use App\Models\ProductImage;
 use Livewire\WithFileUploads;
+use Intervention\Image\Facades\Image;
 
 class ViewProduct extends Component
 {
     use WithFileUploads;
     public $product;
     public Product $getProduct;
-    public $images = [];
+    public $image = null;
  
     protected $queryString = ['product'];
-    protected $listeners = ['refresh-product-images' => 'mount'];
+    protected $listeners = ['refresh-product-image' => 'mount'];
 
     protected $rules = [
         'getProduct.name' => 'required',
@@ -27,32 +28,30 @@ class ViewProduct extends Component
     ];
 
     public function mount() { 
-           $this->getProduct = Product::with('product_images')->whereId($this->product)->firstOr(function(){
+           $this->getProduct = Product::whereId($this->product)->firstOr(function(){
               return view('admin._404');
            });
     }
 
     public function update(){
+
+        if(!is_null($this->image)){
+            $this->validate(['image' => 'image|max:2048']);
+            $product_image = $this->image->store('products','public');
+            $image = Image::make("storage/{$product_image}")->fit(1020,670);
+            $image->save();
+        } 
         Product::whereId($this->getProduct->id)->update([
             'name'=> $this->getProduct->name,
             'price'=> $this->getProduct->price,
             'discount_price'=> $this->getProduct->discount_price,
             'description'=> $this->getProduct->description,
             'packsize'=> $this->getProduct->packsize,
-            'visibility'=> $this->getProduct->visibility
+            'visibility'=> $this->getProduct->visibility,
+            'image'=> $product_image
         ]);
 
-        if(!empty($this->images)){
-            $this->validate(['images*' => 'image|max:4']);
-            foreach ($this->images as $img) {
-                $image = $img->store('products','public');
-                ProductImage::create([
-                    'product_id' => $this->getProduct->id,
-                    'image' => $image
-                ]);
-            }
-        } 
-        $this->emit('refresh-product-images');
+        $this->emit('refresh-product-image');
     }
 
     public function render()

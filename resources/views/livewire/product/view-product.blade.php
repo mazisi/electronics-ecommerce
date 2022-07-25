@@ -10,11 +10,11 @@
                 <div class="card-body">
                     <div class="row g-3 align-items-center">
                         <div class="col-md-12">
-                            <label  class="form-label">Product Price Old</label>
+                            <label  class="form-label">Product Price</label>
                             <input type="text" class="form-control" wire:model.defer="getProduct.price">
                         </div>
                         <div class="col-md-12">
-                            <label  class="form-label">Product Price New</label>
+                            <label  class="form-label">Discount Price</label>
                             <input type="text" class="form-control" wire:model.defer="getProduct.discount_price">
                         </div>
                         <div class="col-md-12">
@@ -40,15 +40,15 @@
             </div>
             <div class="card mb-3">
                 <div class="card-header py-1 d-flex justify-content-between align-items-center bg-transparent border-bottom-0">
-                    <h6 class="m-0 fw-bold">Uploaded Images</h6>
+                    <h6 class="m-0 fw-bold">Product Image</h6>
                 </div>
                 <div class="card-body">
                     <div class="profile-block ">
-                        @forelse ($getProduct->product_images as $image)
-                        <a href="{{ asset('storage/'.$image->image) }}" data-lightbox="image-1" data-title="My caption">
-                            <img src="{{ asset('storage/'.$image->image) }}" alt="" class="avatar xl rounded img-thumbnail shadow-sm">
+                        @if(!is_null($getProduct->image))
+                        <a href="{{ asset('storage/'.$getProduct->image) }}" data-lightbox="{{ $getProduct->name }}" data-title="{{ $getProduct->name }}">
+                            <img src="{{ asset('storage/'.$getProduct->image) }}" alt="" class="avatar xl rounded img-thumbnail shadow-sm">
                         </a>
-                        @empty
+                        @else
                             <p class="text-center">Empty.</p>
                         @endforelse
                         
@@ -87,16 +87,16 @@
                     allowMultiple: {{ isset($attributes['multiple']) ? 'true' : 'false' }},
                     server: {
                     process: (fieldName, file, metadata, load, error, progress, abort, transfer, options) => {
-                    @this.upload('images',file, load, error, progress)
+                    @this.upload('image',file, load, error, progress)
                     },
                     revert: (filename, load) =>{
-                    @this.removeUpload('images', filename, load)
+                    @this.removeUpload('image', filename, load)
                     },
                     },
                     });
                     FilePond.create($refs.input);">
-                            <label for="addnote" class="form-label">Upload Product Images</label>
-                            <input type="file" x-ref="input" wire:model.defer="images" multiple class="form-control"> 
+                            <label for="addnote" class="form-label">Upload Product Image</label>
+                            <input type="file" x-ref="input" wire:model.defer="image" multiple class="form-control"> 
                         </div>
                   <button wire:loading.remove wire:target="update" type="submit" class="btn btn-primary btn-set-task w-sm-100 py-2 px-5 text-uppercase">Save</button>
                   <button wire:loading wire:target="update" disabled type="button" class="btn btn-primary btn-set-task w-sm-100 py-2 px-5 text-uppercase">Loading</button>

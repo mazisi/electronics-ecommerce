@@ -20,6 +20,7 @@ return new class extends Migration
             $table->float('price');
             $table->float('discount_price')->nullable();
             $table->string('packsize')->nullable();
+            $table->string('image')->nullable();
             $table->longText('description')->nullable();
             $table->enum('visibility',['1','0'])->default('1');
             $table->timestamps();
