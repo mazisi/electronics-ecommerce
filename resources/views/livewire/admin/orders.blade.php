@@ -45,4 +45,7 @@
             
         </tbody>
     </table>
+    <div class="float-end mt-2">
+        {{ $orders->links() }}
+    </div>
 </div>

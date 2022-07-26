@@ -41,22 +41,22 @@ class AllProduct extends Component
     public function render()
     {
         if (!empty($this->filterByCategory)) {
-            $allProducts = Product::with('category')->where('category_id',$this->filterByCategory)->inRandomOrder()->paginate($this->limitPerPage);
+            $allProducts = Product::with('category')->where('visibility','1')->where('category_id',$this->filterByCategory)->inRandomOrder()->paginate($this->limitPerPage);
         
         }elseif (!empty($this->sortBy) && $this->sortBy == 'A-Z') {
-            $allProducts = Product::orderBy('name','ASC')->paginate($this->limitPerPage);
+            $allProducts = Product::with('category')->where('visibility','1')->orderBy('name','ASC')->paginate($this->limitPerPage);
 
         }elseif (!empty($this->sortBy) && $this->sortBy == 'Lowest-Price') {
-            $allProducts = Product::orderBy('price','ASC')->paginate($this->limitPerPage);
+            $allProducts = Product::with('category')->where('visibility','1')->orderBy('price','ASC')->paginate($this->limitPerPage);
 
         }elseif (!empty($this->sortBy) && $this->sortBy == 'Highest-Price') {
-            $allProducts = Product::orderBy('price','DESC')->paginate($this->limitPerPage);
+            $allProducts = Product::with('category')->where('visibility','1')->orderBy('price','DESC')->paginate($this->limitPerPage);
         
         }elseif (!empty($this->showLimitFilter)) {
-            $allProducts = Product::orderBy('price','DESC')->paginate($this->limitPerPage);
+            $allProducts = Product::with('category')->where('visibility','1')->orderBy('price','DESC')->paginate($this->limitPerPage);
 
         } else {
-            $allProducts = Product::inRandomOrder()->paginate($this->limitPerPage);
+            $allProducts = Product::with('category')->where('visibility','1')->inRandomOrder()->paginate($this->limitPerPage);
         }
         $this->hasMorePages = $allProducts->hasMorePages();
         return view('livewire.store.all-product',['allProducts' => $allProducts]);

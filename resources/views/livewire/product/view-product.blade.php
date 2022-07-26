@@ -96,7 +96,7 @@
                     });
                     FilePond.create($refs.input);">
                             <label for="addnote" class="form-label">Upload Product Image</label>
-                            <input type="file" x-ref="input" wire:model.defer="image" multiple class="form-control"> 
+                            <input type="file" x-ref="input" wire:model.defer="image" class="form-control"> 
                         </div>
                   <button wire:loading.remove wire:target="update" type="submit" class="btn btn-primary btn-set-task w-sm-100 py-2 px-5 text-uppercase">Save</button>
                   <button wire:loading wire:target="update" disabled type="button" class="btn btn-primary btn-set-task w-sm-100 py-2 px-5 text-uppercase">Loading</button>

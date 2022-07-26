@@ -34,7 +34,7 @@ class ViewProduct extends Component
     }
 
     public function update(){
-
+        $product_image = null;
         if(!is_null($this->image)){
             $this->validate(['image' => 'image|max:2048']);
             $product_image = $this->image->store('products','public');

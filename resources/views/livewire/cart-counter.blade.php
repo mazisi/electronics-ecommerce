@@ -9,18 +9,19 @@
       <li>
         @php
             $cart_total = 0;
+            $price  = 0;
         @endphp
         @forelse ($cartItems as $cartItem)
 
-        @if (is_null($cartItem->product->discount_price))
+        
         @php
-            $cart_total += $cartItem->product->price * $cartItem->quantity;
+        if (is_null($cartItem->product->discount_price)){
+            $price = $cartItem->product->price;
+        } else {
+            $price = $cartItem->product->discount_price;
+        }
+         $cart_total += $price * $cartItem->quantity;
         @endphp
-        @else
-            @php
-            $cart_total += $cartItem->product->discount_price * $cartItem->quantity;
-            @endphp
-        @endif
         
         <div class="cart-item product-summary">
             <div class="row">
@@ -51,7 +52,8 @@
                 </div>
                 
               </div>
-              <div class="col-xs-1 action"> <a wire:click="removeFromCart('{{ $cartItem->id }}')" href="#!"><i class="fa fa-trash text-danger"></i></a> </div>
+              <div class="col-xs-1 action"><span>x{{ $cartItem->quantity }}</span> <a wire:click="removeFromCart('{{ $cartItem->id }}')" href="#!">
+                 <i class="fa fa-trash text-danger"></i></a> </div>
             </div>
           </div>
         @empty
@@ -73,7 +75,7 @@
           <div class="pull-right"> <span class="text">Total :</span><span class="price">R{{ $cart_total }}</span> </div>
           <div class="clearfix"></div>
            <a href="/cart" class="btn btn-upper btn-primary btn-block m-t-20">View Cart</a>
-          <a href="checkout.html" class="btn btn-upper btn-primary btn-block m-t-20 btn-check">Checkout</a> </div>
+          {{-- <a href="checkout.html" class="btn btn-upper btn-primary btn-block m-t-20 btn-check">Checkout</a> </div> --}}
         <!-- /.cart-total--> 
         
       </li>

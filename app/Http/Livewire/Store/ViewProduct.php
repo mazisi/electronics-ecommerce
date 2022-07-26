@@ -4,7 +4,6 @@ namespace App\Http\Livewire\Store;
 
 use App\Models\Cart;
 use App\Models\Product;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class ViewProduct extends Component
@@ -34,12 +33,11 @@ class ViewProduct extends Component
             'quantity' => 'required|numeric|min:1'
         ]);
         try {
-
             $exist = Cart::where('product_id',$this->product)
                             ->where('cookie',$_COOKIE['user'])
                             ->first();
             if($exist){
-                session()->flash('error','Product alredy added to cart.');
+                session()->flash('error','Product already added to your cart.');
                 return back();
             }
             $model = Cart::create([

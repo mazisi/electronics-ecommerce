@@ -6,12 +6,14 @@ use App\Models\Category;
 use App\Models\Product;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
 
 
 class Products extends Component
 {
-    use WithFileUploads;
+    use WithFileUploads, WithPagination;
+    protected $paginationTheme = 'bootstrap';
 
     public $excel_document = null;
     public $is_document_header = null;
@@ -60,7 +62,7 @@ class Products extends Component
 
     public function render(){
         $categories = Category::get(['id','name']);
-        $products = Product::with('category')->latest()->get();
+        $products = Product::with('category')->latest()->paginate(6);
         return view('livewire.product.products',['categories' => $categories, 'products' => $products]);
     }
 

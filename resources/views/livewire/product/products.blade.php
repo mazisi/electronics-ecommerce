@@ -8,6 +8,7 @@
                             <th>Name</th>
                             <th>Category</th>
                             <th>Price</th>
+                            <th>Pack Size</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -16,18 +17,17 @@
                         @forelse ($products as $product)
                         <tr>
                             <td>                               
-                                @if(is_null($product->image))
+                                
                                 <a href="/view-product?product={{ $product->id }}">
-                                    <img src="{{ asset('dashboard/assets/images/product/product-3.jpg') }}" class="avatar lg rounded " 
+                                    @if(is_null($product->image))
+                                    <img src="{{ asset('assets/images/no-image.JPG') }}" class="avatar lg rounded " 
                                     alt="profile-image">
-                                </a>
-                                    
-                                @else
-                                <a href="/view-product?product={{ $product->id }}">
+                                    @else
                                     <img src="{{ asset('storage/'.$product->image) }}" class="avatar lg rounded " 
-                                    alt="profile-image">
+                                        alt="profile-image">
+                                    @endif
                                 </a>
-                                @endif
+                                
                                 <span>{{ $product->name }}</span></td>
                             <td>
                                 @if (!is_null($product->category))
@@ -36,6 +36,7 @@
                                 
                             </td>
                             <td>R {{ $product->price }}</td>
+                            <td>{{ $product->packsize }}</td>
                             <td>
                                 @if ($product->visibility == 1)
                                 <span class="badge bg-success">In Stock</span>
@@ -61,7 +62,11 @@
                         @endforelse
                     </tbody>
                 </table>
-            </div>
+                <div class="float-end mt-2">
+                    {{ $products->links() }}
+                </div>
+                </div>
+            
         </div>
     </div>
     <div wire:ignore class="modal fade" id="upload-products" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

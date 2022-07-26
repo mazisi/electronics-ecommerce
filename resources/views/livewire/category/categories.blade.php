@@ -24,16 +24,10 @@
                             <td><strong>{{ $i }}</strong></td>
                             <td>{{ $category->name }}</td>
                             <td>{{ $category->created_at->format('d-m-Y') }}</td>
-                            <td><span class="badge bg-success">25</span></td>
-
-                            @if($show_edit_input)
-                                <td>
-                                    <input type="text" class="form-control" wire:model.lazy="editname">
-                                </td>
-                            @endif
+                            <td><span class="badge bg-success">{{ $category->products->count() }}</span></td>
                             <td>
                             <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                <a wire:click="edit('{{ $category->slug }}')"
+                                <a wire:click="edit('{{ $category->slug }}')" data-bs-toggle="modal" data-bs-target="#editCategory"
                                 href="#!" class="btn btn-outline-secondary"><i class="icofont-edit text-success"></i></a>
                                 <button x-data onclick="return confirm('All related products will be deleted too!! Continue ??') ? @this.destroy('{{ $category->slug }}') : false" 
                                 type="button" class="btn btn-outline-secondary deleterow"><i class="icofont-ui-delete text-danger"></i></button>
@@ -53,6 +47,9 @@
                         
                     </tbody>
                 </table>
+                <div class="float-end mt-2">
+                    {{ $categories->links() }}
+                </div>
             </div>
         </div>
     </div>
@@ -78,7 +75,7 @@
                        
                             <button wire:loading.inline wire:target="store" class="btn btn-primary" type="button" disabled>
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                                Loading...
+                                <i class="fa fa-spinner fa-spin "></i>
                               </button>
                       </div>
                 </form>
@@ -87,5 +84,25 @@
           </div>
         </div>
       </div>
+      
 
+      <div wire:ignore class="modal fade right" id="editCategory" tabindex="-1"  aria-hidden="true">
+        <div class="modal-dialog  modal-sm">
+            <form wire:submit.prevent='update' class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Category</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body custom_setting">
+                    <input type="text" class="form-control" wire:model.lazy="editname">
+                </div>
+                <div class="modal-footer justify-content-start">
+                    <button type="button" class="btn btn-white border lift" data-bs-dismiss="modal">Close</button>
+                    <button wire:loading.remove wire:target='update' type="submit" class="btn btn-primary lift">Save Changes</button>
+                    <button wire:loading wire:target='update' type="button" class="btn btn-primary lift"><i class="fa fa-spinner fa-spin "></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
   </div>

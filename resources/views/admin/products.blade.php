@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 @section('content')
   
-<div class="body d-flex py-3">  
+<div class="body d-flex ">  
   <div class="container-xxl"> 
       <div class="row align-items-center"> 
           <div class="border-0 mb-4"> 

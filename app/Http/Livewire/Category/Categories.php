@@ -4,22 +4,26 @@ namespace App\Http\Livewire\Category;
 
 use Livewire\Component;
 use App\Models\Category;
+use Livewire\WithPagination;
 
 class Categories extends Component
 {
+    use WithPagination;
+
     public $name = null;
     public $edit_category;
     public $getCategoryName;
     public $show_edit_input = false;
     public $editname = null;
     public $slug = null;
+    protected $paginationTheme = 'bootstrap';
 
     public function store(){
         $this->validate(['name' => 'required|string|max:255|unique:categories,name']);
 
         $category = Category::create(['name' => $this->name, 'slug' => $this->name.sha1(time())]);
         if($category){
-            $this->emit('hide-modal');
+            $this->dispatchBrowserEvent('closeModal'); 
             $this->reset("name");
             session()->flash("success","Category created successfully");
         }
@@ -34,11 +38,12 @@ class Categories extends Component
         
     }
 
-    public function updatedEditName(){
+    public function update(){
 
         try {
             Category::whereSlug($this->slug)->update(['name' => $this->editname]);
             $this->show_edit_input = false;
+            $this->dispatchBrowserEvent('closeModal'); 
             session()->flash("success","Category created successfully");
         } catch (Exception $e) {
             return view('admin.error');
@@ -47,7 +52,7 @@ class Categories extends Component
     }
 
     public function render(){
-        $categories = Category::latest()->get();
+        $categories = Category::with('products')->latest()->paginate(9);
         $i = 0;
         return view('livewire.category.categories',['categories' => $categories, 'i' => $i]);
     }

@@ -42,9 +42,6 @@
             </div>
             <div class="col-md-8 col-sm-8">
                 <div class="card"> 
-                    <div class="card-header py-3 d-flex justify-content-between bg-transparent border-bottom-0">
-                        <h6 class="mb-0 fw-bold ">Customer Order</h6>
-                    </div>
                     <div class="card-body"> 
                         <table id="myProjectTable" class="table table-hover align-middle mb-0" style="width: 100%;">  
                             <thead>
@@ -56,10 +53,21 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php
+                                    $grandTotal  = 0;
+                                    $price  = 0;
+                                @endphp
                                 @forelse ($orders as $order)
+                                @php 
+                                if (is_null($order->product->discount_price)){
+                                            $price = $order->product->price;
+                                        } else {
+                                            $price = $order->product->discount_price;
+                                        }
+                                    $grandTotal += $price * $order->quantity; @endphp
                                 <tr>
                                     <td>
-                                        <a href="order-details.html">
+                                        <a href="/view-product?product={{ $order->product_id }}">
                                             @if (is_null($order->product->image))
                                              <img src="{{ asset('assets/images/no-image.jpg') }}" class="avatar lg rounded me-2">
                                             @else
@@ -96,10 +104,11 @@
                                 </tr>
                                     
                                 @endforelse
-                                
-                              
                             </tbody>
                         </table>
+                        <div class="p-4 active-user bg-lightblue rounded-2 mb-2">
+                            <span class="fw-bold d-flex justify-content-center fs-3">Grand Total: R{{ $grandTotal }}</span>
+                        </div>
                     </div>
                 </div>
                 

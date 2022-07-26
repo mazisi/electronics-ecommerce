@@ -20,7 +20,7 @@ class Carts extends Component
 
     protected $rules = [
         'customer_name' => 'required|string|min:10|max:200',
-        'customer_email' => 'required|email',
+        'customer_email' => 'required|email|unique:users,email',
         'customer_phone' => 'required',
         'customer_address' => 'required',
         'customer_city' => 'required|string',
@@ -94,8 +94,10 @@ class Carts extends Component
                         'model_type' => 'App\Models\Order',
                         'model_id'=> $insert->id,
                         'status' => '0',
+                        'cookie' => $_COOKIE['user'],
                         'body' => $insert->full_name.' placed an order.'
                     ]);
+                    $this->emit('refresh-notification-counter');
                     // unset($_COOKIE['user']);
                     session()->flash('success','Order Place successfully.');
                     $this->reset();

@@ -20,6 +20,16 @@
           <tbody>
             @php $grandTotal = 0; @endphp
             @forelse ($cartProducts as $cartProduct)
+
+            @php 
+                if (is_null($cartProduct->product->discount_price)){
+                            $price = $cartProduct->product->price;
+                        } else {
+                            $price = $cartProduct->product->discount_price;
+                        }
+                    $grandTotal += $price * $cartProduct->quantity;
+            @endphp
+
             @php $grandTotal += $cartProduct->product->price * $cartProduct->quantity; @endphp
             <tr>
                 <td class="romove-item d-flex"><a wire:click="removeFromCart('{{ $cartProduct->id }}')" href="#!" title="cancel" class="icon"><i class="fa fa-trash-o"></i></a>
@@ -46,7 +56,7 @@
                       App\Http\Livewire\Store\Carts::getQuantity($cartProduct->id);
                      @endphp
                     <div class="quant-input">
-                       <input type="number" wire:model.lazy='quantity'>
+                       <input type="number" wire:model.defer='quantity'>
                       </div>
                     
                 </td>
@@ -131,14 +141,14 @@
                       @enderror
                     </div>
                     <div class="form-group col-lg-8">
-                        <label class="info-title control-label">City/Town</label>
+                        <label class="info-title control-label">City/Town <span>*</span></label>
                         <input wire:model.defer='customer_city' type="text" class="form-control unicase-form-control text-input" placeholder="">
                         @error('customer_city')
                         <div class="text-danger">{{ $message }}</div>
                       @enderror
                 </div>
                       <div class="form-group col-lg-4">
-                          <label class="info-title control-label">Zip Code</label>
+                          <label class="info-title control-label">Zip Code <span>*</span></label>
                           <input wire:model.defer='postal_code' type="text" class="form-control unicase-form-control text-input" placeholder="">
                       @error('postal_code')
                           <div class="text-danger">{{ $message }}</div>

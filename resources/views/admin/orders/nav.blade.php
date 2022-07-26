@@ -5,7 +5,7 @@
     @elseif (Route::currentRouteName() == 'pending_orders')
       Pending
       @elseif (Route::currentRouteName() == 'paid_orders')
-      Paid
+      Complete
       @elseif (Route::currentRouteName() == 'declined_orders')
       Declined
 
@@ -26,7 +26,7 @@
       <a href="/paid-orders" class="btn  @if (Route::currentRouteName() == 'paid_orders')
       active
       @endif
-      d-inline-flex align-items-center"><i class="icofont-check-circled px-2 fs-5"></i> Paid</a>
+      d-inline-flex align-items-center"><i class="icofont-check-circled px-2 fs-5"></i> Complete</a>
       <a href="/declined-orders" class="btn @if (Route::currentRouteName() == 'declined_orders')
       active
       @endif d-inline-flex align-items-center"><i class="icofont-close-circled px-2 fs-5"></i> Declined</a>

@@ -25,7 +25,7 @@
                     <td>{{ $order->city }}</td>
                     <td>{{ $order->created_at }}</td>
                     <td>
-                        <div class="btn-group">
+                        <div class="btn-group" wire:loading.remove wire:target='updateOrderStatus'>
                             <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                               Mark As
                             </button>
@@ -34,8 +34,14 @@
                               <li><a wire:click="updateOrderStatus('Declined','{{ $order->id }}')" class="dropdown-item text-danger" href="#!">Declined <i class="icofont-close-line-squared-alt"></i></a></li>
                             </ul>
                           </div>
+
+                          <div class="btn-group" wire:loading wire:target='updateOrderStatus'>
+                            <button type="button" class="btn btn-sm btn-secondary"  aria-expanded="false">
+                                <i class="fa fa-spinner fa-spin "></i>
+                            </button>
+                          </div>
                     </td>
-                    <i class="fa fa-spinner fa-spin ">
+                    
                 </tr>
             @empty
                 <tr></td>
@@ -51,4 +57,7 @@
             
         </tbody>
     </table>
+    <div class="float-end mt-2">
+        {{ $orders->links() }}
+    </div>
 </div>

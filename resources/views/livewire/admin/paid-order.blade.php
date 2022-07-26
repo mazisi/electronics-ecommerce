@@ -25,10 +25,21 @@
                     <td>{{ $order->city }}</td>
                     <td>{{ $order->created_at }}</td>
                     <td>
-                        <div class="btn-group" role="group" aria-label="Basic outlined example">
-                            <a href="/view-order?user={{ $order->cookie }}" class="btn btn-outline-secondary"  data-bs-toggle="modal" data-bs-target="#expedit"><i class="icofont-eye-alt"></i></a>
-                            <button type="button" class="btn btn-outline-secondary deleterow"><i class="icofont-ui-delete text-danger"></i></button>
-                        </div>
+                        <div class="btn-group" wire:loading.remove wire:target='updateOrderStatus'>
+                            <button type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                              Mark As
+                            </button>
+                            <ul class="dropdown-menu">
+                              <li><a wire:click="updateOrderStatus('Complete','{{ $order->id }}')" class="dropdown-item" href="#!">Complete <i class="icofont-tick-boxed"></i></a></li>
+                              <li><a wire:click="updateOrderStatus('Declined','{{ $order->id }}')" class="dropdown-item text-danger" href="#!">Declined <i class="icofont-close-line-squared-alt"></i></a></li>
+                            </ul>
+                          </div>
+
+                          <div class="btn-group" wire:loading wire:target='updateOrderStatus'>
+                            <button type="button" class="btn btn-sm btn-secondary"  aria-expanded="false">
+                                <i class="fa fa-spinner fa-spin "></i>
+                            </button>
+                          </div>
                     </td>
                 </tr>
             @empty
@@ -45,4 +56,7 @@
             
         </tbody>
     </table>
+    <div class="float-end mt-2">
+        {{ $orders->links() }}
+    </div>
 </div>

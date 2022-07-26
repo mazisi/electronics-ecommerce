@@ -23,7 +23,7 @@ Route::get('/store/product-detail', [ProductController::class,'productDetails'])
 
 Route::get('/cart', function () { return view('store.cart');});
 
-
+Route::get('/electronics', function () { return view('store.electronic');});
 
 Route::group(['middleware' => 'auth'], function (){
 
@@ -48,6 +48,7 @@ Route::group(['middleware' => 'auth'], function (){
 
 
         Route::controller(BrandController::class)->group(function () {
+            Route::get('/frontend-brands', 'frontEnd')->name('frontEndBrands');
             Route::get('/brands', 'index')->name('brands');
         });
 

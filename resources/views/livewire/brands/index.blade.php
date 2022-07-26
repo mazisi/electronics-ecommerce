@@ -59,9 +59,18 @@
                 </div>
                 <div class="modal-body">
                     <form wire:submit.prevent="store">
+
+                        <div class="col-md-12">
+                            <label for="add-categ" class="form-label">Brand Name</label>
+                            <input type="text" class="form-control" id="add-categ" required wire:model.defer="brandName">
+                            @error('brandName')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+
                         <div class="col-md-12">
                             <label for="add-categ" class="form-label">Brand Url</label>
-                            <input type="text" class="form-control" id="add-categ" required wire:model.defer="brandUrl">
+                            <input type="url" class="form-control" id="add-categ" required wire:model.defer="brandUrl">
                             @error('brandUrl')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror

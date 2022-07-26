@@ -11,6 +11,7 @@ class Brand extends Model
 
     public $fillable = [
         'url',
-        'logo'
+        'logo',
+        'name'
     ];
 }

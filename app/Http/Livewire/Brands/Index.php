@@ -13,10 +13,12 @@ class Index extends Component
 
     public $brandLogo = null;
     public $brandUrl = null;
+    public $brandName = null;
 
     public function store()
     {
         $this->validate([
+            'brandName' => 'required|string|max:255',
             'brandLogo' => 'required|image|max:2048',
             'brandUrl' => 'required|url'
         ]);
@@ -26,12 +28,14 @@ class Index extends Component
         $image->save();
 
         $store = Brand::create([
+            'name' => $this->brandName,
             'url' => $this->brandUrl,
             'logo' => $logo
         ]);
         if($store){
             session()->flash('success','Brand created successfully.');
             $this->reset();
+            $this->dispatchBrowserEvent('closeModal'); 
             return back();
         }
         session()->flash('error','Error creating brand.');

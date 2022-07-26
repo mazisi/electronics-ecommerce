@@ -26,7 +26,9 @@ class CartCounter extends Component
     }
 
     public function render(){
-        $cartItems = Cart::with('product')->where('cookie',$_COOKIE['user'])->take(3)->latest()->get(['id','product_id']);
+
+        
+        $cartItems = Cart::with('product')->where('cookie',$_COOKIE['user'])->take(3)->latest()->get(['id','product_id','quantity']);
         
         return view('livewire.cart-counter',['cartItems' => $cartItems,'cart_total' => 0]);
     }

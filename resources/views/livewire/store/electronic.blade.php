@@ -1,35 +1,6 @@
 <div class='row'>
-    <!-- ============================================== SIDEBAR ============================================== -->
-<div class="col-md-3 sidebar"> 
-<!-- ================================== TOP NAVIGATION ================================== -->
-<div class="side-menu side-menu-inner animate-dropdown outer-bottom-xs">
-  <div class="head">Categories 
-    <span wire:loading wire:target='setFilterByCategoryValue' class="text-center"> <i class="fa fa-spinner fa-spin"></i></span>
-  </div>
-  <nav class="yamm megamenu-horizontal" style="padding-left: 20px;">
-    <ul class="nav">
 
-    @foreach ($categories as $category)
-    <li class="dropdown menu-item" > 
-      <a wire:click="setFilterByCategoryValue('{{ $category->id }}')" href="#!" class="dropdown-toggle" 
-        data-toggle="dropdown">{{ $category->name }} </a>
-    </li>
-    @endforeach
-      <!-- /.menu-item -->
-      
-      
-      
-    </ul>
-    <!-- /.nav --> 
-  </nav>
-  <!-- /.megamenu-horizontal --> 
-</div>
-
-</div>
-<!-- /.sidemenu-holder --> 
-<!-- ============================================== SIDEBAR : END ============================================== --> 
-
-<div class="col-md-9 rht-col"> 
+<div class="col-md-12 rht-col"> 
 
 <!-- ========================================== SECTION – HERO ========================================= -->
 
@@ -40,7 +11,7 @@
       <div class="filter-tabs">
         <ul id="filter-tabs" class="nav nav-tabs nav-tab-box nav-tab-fa-icon">
           <li class="active"> <a data-toggle="tab" href="#grid-container">
-            <i class="icon fa fa-th-large"></i>All Products</a> </li>
+            <i class="icon fa fa-th-large"></i>Electronics</a> </li>
           
         </ul>
       </div>
@@ -102,7 +73,7 @@
       <div class="category-product">
         <div class="row">
           @forelse ($allProducts as $product)
-          <div class="col-sm-6 col-md-4 col-lg-4 wow fadeInUp">
+          <div class="col-sm-6 col-md-3 col-lg-3 wow fadeInUp">
             <div class="item">
              <div class="products">
                <div class="product">

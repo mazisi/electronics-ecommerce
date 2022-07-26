@@ -15,9 +15,9 @@
         <div id="owl-single-product">
             <div class="single-product-gallery-item" id="slide1">
               @if (is_null($viewProduct->image))
-              <a data-lightbox="image-1" data-title="Gallery" href="{{ asset('assets/images/products/p2.jpg') }}">
-                <img class="img-responsive" alt="" src="{{ asset('assets/images/products/p2.jpg') }}" 
-                data-echo="{{ asset('assets/images/products/p2.jpg') }}" />
+              <a data-lightbox="image-1" data-title="Gallery" href="{{ asset('assets/images/no-image.jpg') }}">
+                <img class="img-responsive" alt="" src="{{ asset('assets/images/no-image.jpg') }}" 
+                data-echo="{{ asset('assets/images/no-image.jpg') }}" style="max-height: 300px"/>
             </a>
               @else
               <a data-lightbox="image-1" data-title="Gallery" href="{{ asset('storage/'.$viewProduct->image) }}">
@@ -122,21 +122,18 @@
               <div class="products">
                 <div class="product">
                   <div class="product-image">
-                    @if(is_null($relatedProduct->image))
+                    
                     <div class="image"> 
                       <a href="/store/product-detail?product={{ $relatedProduct->id }}">
-                         <img src="{{ asset('assets/images/products/p10.jpg') }}" alt=""> 
-                       </a>
-                      
+                          @if(is_null($relatedProduct->image))
+                          <img src="{{ asset('assets/images/no-image.jpg') }}" alt="" style="max-height: 300px"> 
+                        
+                        @else
+                        <img src="{{ asset('storage/'.$relatedProduct->image) }}" alt="" > 
+                        @endif
+                      </a>
                  </div>
-                 @else
-                 <div class="image"> 
-                  <a href="/store/product-detail?product={{ $relatedProduct->id }}">
-                     <img src="{{ asset('storage/'.$relatedProduct->image) }}" alt=""> 
-                   </a>
-                  
-             </div>
-                    @endif
+                    
                     
                     <!-- /.image -->
                     
