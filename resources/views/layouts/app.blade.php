@@ -40,22 +40,19 @@
 
 </head>
 <body class="cnt-home">
-<!-- ============================================== HEADER ============================================== -->
-@include('layouts.header')
-
-<!-- ============================================== HEADER : END ============================================== --> 
+@include('layouts.header') 
 <div class="outer-top-ts top-banner">
 <div class="container">
 <img class="img-responsive" src="{{ asset('assets/images/banners/top-banner.png') }}" alt=""></div>
 </div>
 
 
+</div>
 @yield('content')
 <!-- /#top-banner-and-menu --> 
 
 @livewireScripts
 
-<!-- JavaScripts placed at the end of the document so the pages load faster --> 
 <script src="{{ asset('assets/js/jquery-1.11.1.min.js') }}"></script> 
 <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script> 
 <script src="{{ asset('assets/js/bootstrap-hover-dropdown.min.js') }}"></script> 
@@ -70,26 +67,45 @@
 <script src="{{ asset('assets/js/scripts.js') }}"></script>
 <script src="{{ asset('assets/js/countdown.js') }}"></script> 
 
-<!-- notification js added by: Mazisi Msebele-->
+<!-- notification js added by: Mazisi Msebele -->
 <script type="text/javascript" src="{{ asset('assets/js/notifications/bootstrap-growl.min.js') }}"></script>
 
 {{-- <script type="text/javascript" src="{{ asset('assets/js/notifications/notification.js') }}"></script> --}}
-
 <script>
-      var dthen1 = new Date("12/25/17 11:59:00 PM");
-      start = "08/04/15 03:02:11 AM";
-      start_date = Date.parse(start);
-      var dnow1 = new Date(start_date);
-      if (CountStepper > 0)
-      ddiff = new Date((dnow1) - (dthen1));
-      else
-      ddiff = new Date((dthen1) - (dnow1));
-      gsecs1 = Math.floor(ddiff.valueOf() / 1000);
-      
-      var iid1 = "countbox_1";
-      CountBack_slider(gsecs1, "countbox_1", 1);
-      
-    </script>
+
+
+    function notify(message, type){
+        $.growl({
+            message: message
+        },{
+            type: type,
+            allow_dismiss: false,
+            label: 'Cancel',
+            className: 'btn-xs btn-inverse',
+            placement: {
+                from: 'bottom',
+                align: 'right'
+            },
+            delay: 2500,
+            animate: {
+                    enter: 'animated fadeInRight',
+                    exit: 'animated fadeOutRight'
+            },
+            offset: {
+                x: 30,
+                y: 30
+            }
+        });
+    };
+
+  // notify('Welcome to Notification page', 'inverse');
+
+   
+        
+   
+
+</script>
+
 </body>
 
 </html>

@@ -4,7 +4,7 @@
     <!-- /.breadcrumb --> 
           <div class="shopping-cart">
               <div class="shopping-cart-table ">
-                <form class="col-md-8">
+                <div class="col-md-8">
   <div class="table-responsive">
       <table class="table">
           <thead>
@@ -30,7 +30,7 @@
                     $grandTotal += $price * $cartProduct->quantity;
             @endphp
 
-            @php $grandTotal += $cartProduct->product->price * $cartProduct->quantity; @endphp
+            
             <tr>
                 <td class="romove-item d-flex"><a wire:click="removeFromCart('{{ $cartProduct->id }}')" href="#!" title="cancel" class="icon"><i class="fa fa-trash-o"></i></a>
                   {{-- <a wire:click="updateCart('{{ $cartProduct->id }}')" href="#!"><i class="fa fa-check-circle text-success" aria-hidden="true">Update</i></a> --}}
@@ -55,9 +55,13 @@
                     @php
                       App\Http\Livewire\Store\Carts::getQuantity($cartProduct->id);
                      @endphp
-                    <div class="quant-input">
-                       <input type="number" wire:model.defer='quantity'>
-                      </div>
+                     <form wire:submit.prevent="updateCart('{{ $cartProduct->id }}')">
+                        <div class="quant-input">
+                            <input type="number" wire:model.defer='quantity' min="1">
+                           </div>
+                           <button type="submit" class="btn btn-sm btn-secondary">Save</button>
+                     </form>
+                    
                     
                 </td>
                 <td class="cart-product-grand-total"><span class="cart-grand-total-price">R{{ $cartProduct->product->price }}</span></td>
@@ -87,8 +91,10 @@
                   <td colspan="7">
                       <div class="shopping-cart-btn">
                           <span class="">
-                              <a href="/all-products" class="btn btn-upper btn-primary outer-left-xs">Continue Shopping</a>
-                              <button type="submit" class="btn btn-upper btn-primary pull-right outer-right-xs">Update shopping cart</button>
+                            {{-- <div class="outer-left-xs alert alert-success alert-dismissible" role="alert">
+                               <span style="text-align: center"><strong> Better check yourself, you're not looking too good.!</strong></span>
+                              </div> --}}
+                              <a href="/all-products" class="btn btn-upper btn-primary pull-right outer-right-xs">Continue Shopping</a>
                           </span>
                       </div><!-- /.shopping-cart-btn -->
                   </td>
@@ -96,19 +102,18 @@
           </tfoot>
       </table><!-- /table -->
   </div>
-</form >
+</div>
 </div>
 <form wire:submit.prevent='placeOrder' class="col-md-4 col-sm-12 estimate-ship-tax" style="margin-top: -1.6rem;">
   <table class="table">
       <thead>
           <tr>
               <th>
-                  <span class="estimate-title">Estimate shipping and tax</span>
-                  <p>Enter your destination to get shipping and tax.</p>
+                  <span class="estimate-title">Please Enter Your Details below</span>
               </th>
           </tr>
       </thead><!-- /thead -->
-      <tbody class="@if ($errors->any()) animate__animated animate__shakeX @endif">
+      <tbody>
               <tr>
                   <td>
                       <div class="form-group">

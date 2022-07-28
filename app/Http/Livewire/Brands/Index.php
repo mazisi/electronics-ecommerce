@@ -44,7 +44,7 @@ class Index extends Component
 
     public function render()
     {
-        $brands  = Brand::latest()->get(['url','logo','id']);
+        $brands  = Brand::latest()->get(['url','logo','id','name']);
         return view('livewire.brands.index',['brands' => $brands]);
     }
 

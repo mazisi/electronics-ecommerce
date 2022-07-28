@@ -17,8 +17,10 @@
                                     </div>
                                 </a>
                                 <div class="product-content p-3">
-                                <a x-data onclick="return confirm('Are you sure ??') ? @this.destroy('{{ $brand->id }}') : false" 
-                                     href="#!" class=" mt-1"> <i class="icofont-ui-delete text-danger h3"></i></a>
+                                    <a href="{{ $brand->url }}" target="_blank" class="fw-bold">{{ $brand->name }} </a>
+                                <a class="pull-right"
+                                 x-data onclick="return confirm('Are you sure ??') ? @this.destroy('{{ $brand->id }}') : false" 
+                                     href="#!" class=" mt-1"> <i class="icofont-ui-delete text-danger h4"></i></a>
     
                                 </div>
                             </div>
@@ -29,25 +31,7 @@
             @endforelse
             
         </div>
-        <div class="row g-3 mb-3">
-            <div class="col-md-12">
-                <nav class="justify-content-end d-flex">
-                    <ul class="pagination">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1">Previous</a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item active" aria-current="page">
-                        <a class="page-link" href="#">2</a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">Next</a>
-                    </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
+{{-- paginate --}}
 
 
         <div wire:ignore class="modal fade" id="create-brand" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

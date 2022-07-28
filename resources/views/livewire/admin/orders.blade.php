@@ -23,10 +23,10 @@
                     <td>{{ Str::lower($order->email) }}</td>
                     <td>{{ $order->mobile }}</td>
                     <td>{{ $order->city }}</td>
-                    <td>{{ $order->created_at }}</td>
+                    <td>{{ $order->created_at->format('d-m-Y') }}</td>
                     <td>
                         <div class="btn-group" role="group" aria-label="Basic outlined example">
-                            <a href="/view-order?user={{ $order->cookie }}" class="btn btn-outline-secondary"  data-bs-toggle="modal" data-bs-target="#expedit"><i class="icofont-eye-alt"></i></a>
+                            <a href="/view-order?user={{ $order->cookie }}" class="btn btn-outline-secondary"><i class="icofont-eye-alt"></i></a>
                             <button type="button" class="btn btn-outline-secondary deleterow"><i class="icofont-ui-delete text-danger"></i></button>
                         </div>
                     </td>

@@ -13,6 +13,7 @@ class CartCounter extends Component
         try {
             $del = Cart::whereId($cart_id)->where('cookie',$_COOKIE['user'])->first();
             if($del->delete()){
+                $this->emit('refresh-cart-page');
                 session()->flash('success','Item removed successfully.');
                 return back();
             }

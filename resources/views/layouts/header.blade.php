@@ -2,27 +2,18 @@
   
         <div class="clearfix"></div>
       </div>
-      <!-- /.header-top-inner --> 
     </div>
-    <!-- /.container --> 
-  {{-- </div>  --}}
-  <!-- /.header-top --> 
-  <!-- ============================================== TOP MENU : END ============================================== -->
   <div class="main-header">
     <div class="container">
       <div class="row">
         <div class="col-xs-12 col-lg-2 col-sm-12 col-md-3 logo-holder"> 
-          <!-- ============================================================= LOGO ============================================================= -->
           <div class="logo"> <a href="/"> <img src="{{ asset('assets/images/logo.png') }}" alt="logo" style="height: 6rem"> </a> </div>
-          <!-- /.logo --> 
-          <!-- ============================================================= LOGO : END ============================================================= --> </div>
-        <!-- /.logo-holder -->
+          </div>
         
-        <div class="col-lg-3 col-md-2 col-sm-5 col-xs-12 top-search-holder"> 
- </div>
+        <div class="col-lg-2 col-md-1 col-sm-4 col-xs-12 top-search-holder"> </div>
       
         
-         <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 navmenu"> 
+         <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 navmenu"> 
       <div class="yamm navbar navbar-default" role="navigation">
         <div class="navbar-header">
        <button data-target="#mc-horizontal-menu-collapse" data-toggle="collapse" class="navbar-toggle collapsed" type="button"> 
@@ -38,8 +29,14 @@
                  </li>
                 <li class="dropdown"> <a href="/all-products">Store</a> 
                 </li>
-                <li class="dropdown"> <a href="#">Strategy & Coaching</a>
+                <li class="dropdown"> <a onclick="alert('Waitin for details')" href="#!">Strategy & Coaching</a>
                 </li>
+                @auth
+                <li class="dropdown"> <a href="{{ route('dashboard') }}">Dashboard</a> 
+                </li>
+                @endauth
+                
+                
             
               </ul>
               <!-- /.navbar-nav -->
@@ -53,13 +50,10 @@
         <!-- /.nav-bg-class --> 
       </div>
       <!-- /.navbar-default --> 
-      <div class="top-cart-row"> 
-          <!-- ============================================================= SHOPPING CART DROPDOWN ============================================================= -->
+      <div class="top-cart-row">
           
-         @livewire('cart-counter')
-          <!-- /.dropdown-cart --> 
-          
-          <!-- ============================================================= SHOPPING CART DROPDOWN : END============================================================= --> </div>
+         @livewire('cart-counter') 
+      </div>
     </div>
     <!-- /.container-class --> 
     

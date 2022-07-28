@@ -18,6 +18,8 @@ class Carts extends Component
     public $customer_city = null;
     public $postal_code = null;
 
+    protected $listeners = ['refresh-cart-page' => 'render'];//refresh cart after item removal on nav
+
     protected $rules = [
         'customer_name' => 'required|string|min:10|max:200',
         'customer_email' => 'required|email|unique:users,email',
@@ -34,11 +36,10 @@ class Carts extends Component
     }
 
 
-    public function updateCart($cart_id)
-    {
-        try {dd($this->quantity);
-            // $this->validate(['quantity' => 'required|numeric|min:1']);
-            $update = Cart::whereId($cart_id)->update(['quantity' => $this->quantity]);
+    public function updateCart($cart_id){
+        try {
+            $this->validate(['quantity' => 'required|numeric|min:1']);
+            $update = Cart::whereId($cart_id)->where('cookie',$_COOKIE['user'])->update(['quantity' => $this->quantity]);
             if($update){
                 session()->flash('success','Cart updated successfully.');
                 return back();
@@ -69,11 +70,6 @@ class Carts extends Component
         
     }
 
-    // public function updatedQuantity(){
-    //    $del = Cart::whereId($cart_id)->where('cookie',$_COOKIE['user'])->first();
-            
-        
-    // }
 
     public function placeOrder(){
         try {
@@ -98,10 +94,11 @@ class Carts extends Component
                         'body' => $insert->full_name.' placed an order.'
                     ]);
                     $this->emit('refresh-notification-counter');
-                    // unset($_COOKIE['user']);
+                    unset($_COOKIE['user']);
+                    HasCookie::setCartCookie();
                     session()->flash('success','Order Place successfully.');
                     $this->reset();
-                    return back();
+                    return to_route('home');
                 }
                 session()->flash('error','An unknown error occured.');
                 return back();
