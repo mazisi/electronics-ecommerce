@@ -96,7 +96,7 @@ class Carts extends Component
                     $this->emit('refresh-notification-counter');
                     unset($_COOKIE['user']);
                     HasCookie::setCartCookie();
-                    session()->flash('success','Order Place successfully.');
+                    session()->flash('success','Order Placed successfully.');
                     $this->reset();
                     return to_route('home');
                 }

@@ -71,40 +71,7 @@
 <script type="text/javascript" src="{{ asset('assets/js/notifications/bootstrap-growl.min.js') }}"></script>
 
 {{-- <script type="text/javascript" src="{{ asset('assets/js/notifications/notification.js') }}"></script> --}}
-<script>
 
-
-    function notify(message, type){
-        $.growl({
-            message: message
-        },{
-            type: type,
-            allow_dismiss: false,
-            label: 'Cancel',
-            className: 'btn-xs btn-inverse',
-            placement: {
-                from: 'bottom',
-                align: 'right'
-            },
-            delay: 2500,
-            animate: {
-                    enter: 'animated fadeInRight',
-                    exit: 'animated fadeOutRight'
-            },
-            offset: {
-                x: 30,
-                y: 30
-            }
-        });
-    };
-
-  // notify('Welcome to Notification page', 'inverse');
-
-   
-        
-   
-
-</script>
 
 </body>
 

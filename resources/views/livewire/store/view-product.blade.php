@@ -27,4 +27,63 @@
 
         
     </div>
+    @if(session()->has('error'))
+    <script>
+        function notify(message, type){
+            $.growl({
+                message: message
+            },{
+                type: type,
+                allow_dismiss: false,
+                label: 'Cancel',
+                className: 'btn-xs btn-inverse',
+                placement: {
+                    from: 'bottom',
+                    align: 'right'
+                },
+                delay: 3000,
+                animate: {
+                        enter: 'animated fadeInRight',
+                        exit: 'animated fadeOutRight'
+                },
+                offset: {
+                    x: 30,
+                    y: 30
+                }
+            });
+        };
+
+      notify('{{ session('error') }}', 'inverse');   
+    </script>
+
+    @elseif (session('success'))
+
+    <script>
+        function notify(message, type){
+            $.growl({
+                message: message
+            },{
+                type: type,
+                allow_dismiss: false,
+                label: 'Cancel',
+                className: 'btn-xs btn-inverse',
+                placement: {
+                    from: 'bottom',
+                    align: 'right'
+                },
+                delay: 3000,
+                animate: {
+                        enter: 'animated fadeInRight',
+                        exit: 'animated fadeOutRight'
+                },
+                offset: {
+                    x: 30,
+                    y: 30
+                }
+            });
+        };
+
+      notify('{{ session('success') }}', 'inverse');   
+    </script>
+    @endif
 </div>
