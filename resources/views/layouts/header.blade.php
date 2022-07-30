@@ -23,13 +23,13 @@
           <div class="navbar-collapse collapse" id="mc-horizontal-menu-collapse">
             <div class="nav-outer">
               <ul class="nav navbar-nav">
-                <li class="dropdown"> <a href="/frontend-brands">Brands</a> 
+                <li class="dropdown "> <a href="/frontend-brands">Brands</a> 
                 </li>
                 <li class="dropdown"> <a href="/electronics">Electronics</a> 
                  </li>
                 <li class="dropdown"> <a href="/all-products">Store</a> 
                 </li>
-                <li class="dropdown"> <a onclick="alert('Waitin for details')" href="#!">Strategy & Coaching</a>
+                <li class="dropdown"> <a href="/strategy-&-coaching">Strategy & Coaching</a>
                 </li>
                 @auth
                 <li class="dropdown"> <a href="{{ route('dashboard') }}">Dashboard</a> 
@@ -57,7 +57,12 @@
     </div>
     <!-- /.container-class --> 
     
-
+<style>
+  .active{
+    background-color: #fff;
+    border-radius: 5%;
+  }
+</style>
         
         </div>
     

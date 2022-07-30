@@ -50,8 +50,9 @@ class ViewProduct extends Component
             'visibility'=> $this->getProduct->visibility,
             'image'=> $product_image
         ]);
-
+        session()->flash('success',''.$this->getProduct->name.' Product updated successfully.');
         $this->emit('refresh-product-image');
+        return back();
     }
 
     public function render()

@@ -13,7 +13,6 @@ class Categories extends Component
     public $name = null;
     public $edit_category;
     public $getCategoryName;
-    public $show_edit_input = false;
     public $editname = null;
     public $slug = null;
     protected $paginationTheme = 'bootstrap';
@@ -23,17 +22,19 @@ class Categories extends Component
 
         $category = Category::create(['name' => $this->name, 'slug' => $this->name.sha1(time())]);
         if($category){
+            session()->flash("success","Category created successfully");
             $this->dispatchBrowserEvent('closeModal'); 
             $this->reset("name");
-            session()->flash("success","Category created successfully");
+            return back();
+            
         }
-        session()->flash("success","Error creating category");
+        session()->flash("error","Error creating category");
+        return back();
     }
 
     public function edit($slug){
         $this->getCategoryName = Category::whereSlug($slug)->first();
         $this->editname = $this->getCategoryName->name;
-        $this->show_edit_input = true;
         $this->slug = $this->getCategoryName->slug;
         
     }
@@ -42,9 +43,9 @@ class Categories extends Component
 
         try {
             Category::whereSlug($this->slug)->update(['name' => $this->editname]);
-            $this->show_edit_input = false;
-            $this->dispatchBrowserEvent('closeModal'); 
             session()->flash("success","Category created successfully");
+            $this->dispatchBrowserEvent('closeModal'); 
+            return back();
         } catch (Exception $e) {
             return view('admin.error');
         }
@@ -63,8 +64,10 @@ class Categories extends Component
             $model = Category::whereSlug($slug)->first();
             if($model->delete()){
                 session()->flash("success","Category deleted successfully.");
+                return back();
             }
             session()->flash("error","An error occured while deleting category.");
+            return back();
         } catch (Exception $e) {
             return view('admin.error');
         }

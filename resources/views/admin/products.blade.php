@@ -2,19 +2,8 @@
 @section('content')
   
 <div class="body d-flex ">  
-  <div class="container-xxl"> 
-      <div class="row align-items-center"> 
-          <div class="border-0 mb-4"> 
-              <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
-                  <h3 class="fw-bold mb-0">Product List</h3>
-                  <a data-bs-toggle="modal" data-bs-target="#upload-products"
-                   href="#!" class="btn btn-primary py-2 px-5 btn-set-task w-sm-100">
-                    <i class="icofont-plus-circle me-2 fs-6"></i> Upload Products</a>
-              </div>
-          </div>
-      </div> <!-- Row end  -->
-      @livewire('product.products')
-  </div>
+  
+  @livewire('product.products')
 </div>
 
 @endsection

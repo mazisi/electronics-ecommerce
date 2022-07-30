@@ -48,12 +48,15 @@ class Products extends Component
                    }
                
                    fclose ( $handle );
-                   unlink(public_path('storage/'.$excel_document));
+                   //unlink(public_path('storage/'.$excel_document));
+                   session()->flash('success','Product created successfully.');
                    return back();
                }else{
+                session()->flash('error','Error creating product.');
                 return back();
                }
            }else{
+            session()->flash('error','Uploaded File is not a valid CSV file.');
                return back();
              }
      
@@ -72,8 +75,8 @@ class Products extends Component
             return view('admin._404');
         });
         if($product->delete()){
-            return back();
             session()->flash('success','Product deleted successfully.');
+            return back();
         }
         return back();
             session()->flash('error','Error deleting product.');

@@ -58,6 +58,8 @@ class Index extends Component
                 session()->flash('success','Brand deleted successfully.');
                 return back();
             }
+                session()->flash('error','Error deleting brand.');
+                return back();
         }catch(Exception $e){
           return view('admin.error');
         }

@@ -24,6 +24,7 @@ Route::get('/store/product-detail', [ProductController::class,'productDetails'])
 Route::get('/cart', function () { return view('store.cart');});
 
 Route::get('/electronics', function () { return view('store.electronic');});
+Route::get('/strategy-&-coaching', function () { return view('coaching');});
 
 Route::group(['middleware' => 'auth'], function (){
 
